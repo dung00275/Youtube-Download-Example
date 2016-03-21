@@ -592,7 +592,7 @@
                 <tabBarController storyboardIdentifier="TabbarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OcU-OO-J2T" customClass="TabbarViewController" customModule="youtubeExample" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="xBD-iT-VIp"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="aNQ-Qh-veH">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="aNQ-Qh-veH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
