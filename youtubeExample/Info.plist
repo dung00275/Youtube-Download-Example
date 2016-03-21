@@ -64,5 +64,10 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>youtube:</string>
+		<string>https://youtube.com/</string>
+	</array>
 </dict>
 </plist>

@@ -75,6 +75,8 @@ class SCSkypeActivityIndicatorView: UIView {
         }
         isAnimating = true
         
+        print("function \(__FUNCTION__)")
+        
         for i in 0..<numberOfBubbles{
             let value = 1 / CGFloat(numberOfBubbles)
             let x:CGFloat = CGFloat(i) * value

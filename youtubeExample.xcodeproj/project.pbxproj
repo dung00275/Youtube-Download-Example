@@ -10,6 +10,8 @@
 		E90370C51C45F62200664A6B /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90370C41C45F62200664A6B /* TabbarViewController.swift */; };
 		E90370C71C45FAE300664A6B /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90370C61C45FAE300664A6B /* PlayerViewController.swift */; };
 		E90370C91C4610ED00664A6B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E90370C81C4610ED00664A6B /* AVFoundation.framework */; };
+		E91DE5AC1C9F9D5E00557809 /* WebView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E91DE5AB1C9F9D5E00557809 /* WebView.storyboard */; };
+		E91DE5AE1C9F9D9500557809 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91DE5AD1C9F9D9500557809 /* WebViewViewController.swift */; };
 		E985270B1BB397070094FD75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985270A1BB397070094FD75 /* AppDelegate.swift */; };
 		E985270D1BB397070094FD75 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985270C1BB397070094FD75 /* ViewController.swift */; };
 		E98527101BB397080094FD75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E985270E1BB397080094FD75 /* Main.storyboard */; };
@@ -165,6 +167,8 @@
 		E90370C41C45F62200664A6B /* TabbarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		E90370C61C45FAE300664A6B /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		E90370C81C4610ED00664A6B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E91DE5AB1C9F9D5E00557809 /* WebView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WebView.storyboard; sourceTree = "<group>"; };
+		E91DE5AD1C9F9D9500557809 /* WebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		E98527071BB397070094FD75 /* youtubeExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = youtubeExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985270A1BB397070094FD75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E985270C1BB397070094FD75 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -321,6 +325,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E91DE5AA1C9F9CBF00557809 /* WebView Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E91DE5AB1C9F9D5E00557809 /* WebView.storyboard */,
+				E91DE5AD1C9F9D9500557809 /* WebViewViewController.swift */,
+			);
+			path = "WebView Controller";
+			sourceTree = SOURCE_ROOT;
+		};
 		E98526FE1BB397070094FD75 = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +373,7 @@
 		E98527091BB397070094FD75 /* youtubeExample */ = {
 			isa = PBXGroup;
 			children = (
+				E91DE5AA1C9F9CBF00557809 /* WebView Controller */,
 				E9F95A6C1C4CC65B009E5740 /* youtubeExample.entitlements */,
 				E985270A1BB397070094FD75 /* AppDelegate.swift */,
 				E985270C1BB397070094FD75 /* ViewController.swift */,
@@ -667,6 +681,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E91DE5AC1C9F9D5E00557809 /* WebView.storyboard in Resources */,
 				E98527721BB3B70B0094FD75 /* Info.plist in Resources */,
 				E9F16EF21C59F794008DE310 /* DownloadManager.storyboard in Resources */,
 				E9931E9F1BB51EBD00BB79D9 /* LoadingView.xib in Resources */,
@@ -747,6 +762,7 @@
 				E98528051BB3BDAE0094FD75 /* TransformOf.swift in Sources */,
 				E98527B71BB3B70B0094FD75 /* Log.swift in Sources */,
 				E98527BA1BB3B70B0094FD75 /* NetworkFetcher.swift in Sources */,
+				E91DE5AE1C9F9D9500557809 /* WebViewViewController.swift in Sources */,
 				E98527901BB3B70B0094FD75 /* Upload.swift in Sources */,
 				E985277E1BB3B70B0094FD75 /* Request.swift in Sources */,
 				E98527C31BB3B70B0094FD75 /* String+Haneke.swift in Sources */,

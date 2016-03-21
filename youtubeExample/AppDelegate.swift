@@ -30,6 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.statusBarStyle = .LightContent
         UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        
+        let barButton = UIBarButtonItem.appearance()
+//        barButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "AvenirNext", size: 15], forState: UIControlState.Normal)
+        barButton.setTitleTextAttributes([NSFontAttributeName:UIFont.boldSystemFontOfSize(20)], forState: .Normal)
+        
         return true
     }
 
