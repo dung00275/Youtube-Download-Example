@@ -4,8 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>YouTubeShareExt.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>youtubeExample.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
@@ -23,6 +32,31 @@
 			<true/>
 		</dict>
 		<key>E98527251BB397080094FD75</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9882B621C4CC91F00696726</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9882B811C4CCE8B00696726</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9882B931C4CDC3100696726</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9882BA51C4CDCAF00696726</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9F95A5E1C4CC5E8009E5740</key>
 		<dict>
 			<key>primary</key>
 			<true/>
