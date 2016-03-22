@@ -79,6 +79,11 @@ class PlayerViewController:UIViewController {
         print("Deinit PlayerViewController \n ")
         NSNotificationCenter.defaultCenter().removeObserver(self)
         self.view.removeGestureRecognizer(tapGesture)
+        if player != nil
+        {
+            player.removeObserver(self, forKeyPath: "status")
+        }
+        
         
     }
     
@@ -195,13 +200,13 @@ extension PlayerViewController{
             self.setAlphaControl(0)
         }
         
-        tapGesture = UITapGestureRecognizer(target: self, action: "playAndPause")
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(playAndPause))
         self.view.addGestureRecognizer(tapGesture)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "itemPlayFinish:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "continuePlaying", name: AVPlayerItemPlaybackStalledNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "pause", name: "PausePlayer", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(itemPlayFinish(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(continuePlaying), name: AVPlayerItemPlaybackStalledNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(pause), name: "PausePlayer", object: nil)
         do{
             try self.setupInBackground()
         }catch let error as NSError{
@@ -388,7 +393,7 @@ extension PlayerViewController{
         if self.player != nil{
             self.btnPlay.selected = true
             self.player.play()
-            self.timerTrackingPlaying = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "updateTimeForPlayer", userInfo: nil, repeats: true)
+            self.timerTrackingPlaying = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(updateTimeForPlayer), userInfo: nil, repeats: true)
             updateTimeForPlayer()
         }
     }

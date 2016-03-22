@@ -40,15 +40,7 @@ class DownloaderManager:NSObject,NSURLSessionDownloadDelegate {
         func checkFileExist(fileName:String) -> Bool{
             if arrayDownloadItem.count == 0 {return false}
             
-            let items = arrayDownloadItem.filter {
-                return $0.fileName == fileName
-            }
-            
-//            for item in arrayDownloadItem {
-//                if item.fileName == fileName{
-//                    return true
-//                }
-//            }
+            let items = arrayDownloadItem.filter {$0.fileName == fileName}
             return items.count > 0
         }
         
@@ -225,7 +217,7 @@ class FileDownloadInfo: NSObject {
         self.fileName = fileName
         
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "removeDataGotMemoryWarning",
+            selector: #selector(removeDataGotMemoryWarning),
             name: UIApplicationDidReceiveMemoryWarningNotification,
             object: nil)
     }
@@ -294,7 +286,7 @@ class FileDownloadInfo: NSObject {
     
     // MARK: ---Memory
     deinit{
-        print("\(__FUNCTION__) class: \(self.dynamicType) \n")
+        print("\(#function) class: \(self.dynamicType) \n")
         NSNotificationCenter.defaultCenter().removeObserver(self)
         self.dataResume = nil
         self.downloadTask = nil
@@ -312,7 +304,7 @@ class DownloadManagerViewController: UIViewController {
         tableView.estimatedRowHeight = 92
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNewFile", name: "NewFile", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleNewFile), name: "NewFile", object: nil)
     }
     
     func handleNewFile(){
@@ -327,7 +319,7 @@ class DownloadManagerViewController: UIViewController {
     
     deinit{
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        print("\(__FUNCTION__) class : \(self.dynamicType)")
+        print("\(#function) class : \(self.dynamicType)")
     }
     
     

@@ -206,11 +206,10 @@ class ViewController: UIViewController {
         preparePreview()
         
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(pullToRefresh), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handlerDownloadFromExtension:", name: kURLDownload, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handlerDownloadFromExtension(_:)), name: kURLDownload, object: nil)
         self.requestData()
-        
         guard let url = appDelegate.urlDownload else{
             return
         }
@@ -376,7 +375,12 @@ extension ViewController{
             if error == nil
             {
                 Queue.Background.execute({ () -> Void in
-                    self?.parseData(data)
+                    do{
+                        try self?.parseData(data)
+                    }catch let error as NSError{
+                        print(error.description)
+                    }
+                    
                 })
             }
         })
@@ -386,45 +390,41 @@ extension ViewController{
 }
 
 extension ViewController{
-    func parseData(data:NSData?)
+    func parseData(data:NSData?) throws
     {
         guard let data = data else{
-            return
+            throw NSError(domain: "com.youtube", code: 5445, userInfo: [NSLocalizedDescriptionKey:"No Data To Parse!!!!"])
         }
         
-        do{
-            let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
-            guard let response = Mapper<youTubeList>().map(json) as youTubeList?, items = response.items as [youTubeItem]? else{
-                return
-            }
-            if let token = response.nextPageToken
-            {
-                pageToken = token
-            }else{
-                pageToken = nil
-            }
-            currentNumberPage++
-            let oldItem = self.items.count
-            var arrCell = [NSIndexPath]()
-            for (index,item) in items.enumerate()
-            {
-                self.items.append(item)
-                let indexPath = NSIndexPath(forRow: oldItem + index, inSection: 0)
-                arrCell.append(indexPath)
-            }
-            dispatch_async(dispatch_get_main_queue(), { [weak self]() -> Void in
-                self?.tableView.beginUpdates()
-                self?.tableView.insertRowsAtIndexPaths(arrCell, withRowAnimation: .Fade)
-                self?.tableView.endUpdates()
-                })
+        let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
         
-            print("finsh!!!!!!")
-            
-        }catch let error as NSError{
-            print(error.description)
+        guard let response = Mapper<youTubeList>().map(json) as youTubeList?, items = response.items as [youTubeItem]? else{
+            throw NSError(domain: "com.youtube", code: 5445, userInfo: [NSLocalizedDescriptionKey:"No Response!!!!"])
         }
         
+        if let token = response.nextPageToken
+        {
+            pageToken = token
+        }else{
+            pageToken = nil
+        }
         
+        currentNumberPage += 1
+        let oldItem = self.items.count
+        var arrCell = [NSIndexPath]()
+        for (index,item) in items.enumerate()
+        {
+            self.items.append(item)
+            let indexPath = NSIndexPath(forRow: oldItem + index, inSection: 0)
+            arrCell.append(indexPath)
+        }
+        dispatch_async(dispatch_get_main_queue(), { [weak self]() -> Void in
+            self?.tableView.beginUpdates()
+            self?.tableView.insertRowsAtIndexPaths(arrCell, withRowAnimation: .Fade)
+            self?.tableView.endUpdates()
+            })
+        
+        print("finsh!!!!!!")
     }
 }
 
@@ -635,12 +635,12 @@ let minWidth:CGFloat = 160
         self.previewView.addSubview(self.player.view)
         self.player.didMoveToParentViewController(self)
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: "pan:")
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
         panGesture.delegate = self
         self.previewView.addGestureRecognizer(panGesture)
         
         
-        let doubleTap = UITapGestureRecognizer(target: self, action: "openFullScreen:")
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(openFullScreen(_:)))
         doubleTap.numberOfTapsRequired = 2
         
         self.previewView.addGestureRecognizer(doubleTap)

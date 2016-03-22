@@ -33,8 +33,8 @@ class DownloadedViewController: UIViewController {
         super.viewDidLoad()
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "getData", name: "NewFileDownloaded", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNotificationSearch:", name: "PlayVideo", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(getData), name: "NewFileDownloaded", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleNotificationSearch(_:)), name: "PlayVideo", object: nil)
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70
@@ -43,7 +43,7 @@ class DownloadedViewController: UIViewController {
         self.btnAlarm.tintColor = UIColor.whiteColor()
         let imageAlarm = UIImage(named: "alarm")
         self.btnAlarm.setImage(imageAlarm?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
-        self.btnAlarm.addTarget(self, action: "openSetupAlarm", forControlEvents: .TouchUpInside)
+        self.btnAlarm.addTarget(self, action: #selector(openSetupAlarm), forControlEvents: .TouchUpInside)
         
         let itemRight = UIBarButtonItem(customView: self.btnAlarm)
         
@@ -96,7 +96,7 @@ extension DownloadedViewController{
         self.timerPausePlayer?.invalidate()
         self.timerPausePlayer = nil
         
-        self.timerPausePlayer = NSTimer.scheduledTimerWithTimeInterval(Double(time * 60), target: self, selector: "pausePlayer", userInfo: nil, repeats: false)
+        self.timerPausePlayer = NSTimer.scheduledTimerWithTimeInterval(Double(time * 60), target: self, selector: #selector(pausePlayer), userInfo: nil, repeats: false)
     }
     
     func pausePlayer(){
@@ -365,7 +365,7 @@ extension DownloadedViewController:PlayerViewControllerDelegate{
     
     func playForward(player: PlayerViewController) {
         if currentItemPlay >= 0 && currentItemPlay < (items.count - 1){
-            currentItemPlay++
+            currentItemPlay += 1
             let item = items[currentItemPlay]
             let urlPath = NSURL(fileURLWithPath: item.path)
             player.playVideoUrl(urlPath)
@@ -375,7 +375,7 @@ extension DownloadedViewController:PlayerViewControllerDelegate{
     
     func playRewind(player: PlayerViewController) {
         if currentItemPlay > 0 {
-            currentItemPlay--
+            currentItemPlay -= 1
             let item = items[currentItemPlay]
             let urlPath = NSURL(fileURLWithPath: item.path)
             player.playVideoUrl(urlPath)

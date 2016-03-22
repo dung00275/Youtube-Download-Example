@@ -75,7 +75,7 @@ public final class Map {
 			return value
 		} else {
 			// Collects failed count
-			failedCount++
+			failedCount += 1
 			
 			// Returns dummy memory as a proxy for type `T`
 			let pointer = UnsafeMutablePointer<T>.alloc(0)
@@ -139,7 +139,8 @@ public final class Mapper<N: Mappable> {
 	
 	/// Maps a JSON dictionary to an existing object that conforms to Mappable.
 	/// Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
-	public func map(JSONDictionary: [String : AnyObject], var toObject object: N) -> N {
+	public func map(JSONDictionary: [String : AnyObject],toObject object: N) -> N {
+        var object = object
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
 		object.mapping(map)
 		return object
@@ -260,7 +261,8 @@ public final class Mapper<N: Mappable> {
 	// MARK: Functions that create JSON from objects
 	
 	///Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
-	public func toJSON(var object: N) -> [String : AnyObject] {
+	public func toJSON(object: N) -> [String : AnyObject] {
+        var object = object
 		let map = Map(mappingType: .ToJSON, JSONDictionary: [:])
 		object.mapping(map)
 		return map.JSONDictionary

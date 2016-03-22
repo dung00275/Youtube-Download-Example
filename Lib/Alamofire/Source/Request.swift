@@ -465,13 +465,14 @@ extension Request: CustomDebugStringConvertible {
         }
 
         if let credentialStorage = self.session.configuration.URLCredentialStorage {
+            
             let protectionSpace = NSURLProtectionSpace(
                 host: URL!.host!,
                 port: URL!.port?.integerValue ?? 0,
-                `protocol`: URL!.scheme,
+                protocol: URL!.scheme,
                 realm: URL!.host!,
-                authenticationMethod: NSURLAuthenticationMethodHTTPBasic
-            )
+                authenticationMethod: NSURLAuthenticationMethodHTTPBasic)
+            
 
             if let credentials = credentialStorage.credentialsForProtectionSpace(protectionSpace)?.values {
                 for credential in credentials {

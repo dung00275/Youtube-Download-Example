@@ -147,6 +147,7 @@ class ActionViewController: UIViewController {
         
         do{
             let app = try self.sharedApplication(self.parentViewController)
+            
             app.performSelector("openURL:", withObject: urlScheme)
             
         }catch let error as NSError{

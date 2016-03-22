@@ -41,7 +41,7 @@ class HDNotificationView: UIToolbar {
             UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationStatusDidChange:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(orientationStatusDidChange(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         self.setupUI()
         
@@ -121,7 +121,7 @@ class HDNotificationView: UIToolbar {
         
         fixLabelMessageSize()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: "notificationViewDidTap:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(notificationViewDidTap(_:)))
         self.addGestureRecognizer(tapGesture)
         
     }
@@ -236,7 +236,7 @@ extension HDNotificationView{
         
         if isAutoHide
         {
-            timerHideAuto = NSTimer.scheduledTimerWithTimeInterval(NOTIFICATION_VIEW_SHOWING_DURATION, target: self, selector: "hideNotificationView", userInfo: nil, repeats: false)
+            timerHideAuto = NSTimer.scheduledTimerWithTimeInterval(NOTIFICATION_VIEW_SHOWING_DURATION, target: self, selector: #selector(hideNotificationView), userInfo: nil, repeats: false)
         }
     }
     

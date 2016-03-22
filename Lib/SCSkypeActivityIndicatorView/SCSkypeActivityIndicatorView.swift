@@ -75,7 +75,7 @@ class SCSkypeActivityIndicatorView: UIView {
         }
         isAnimating = true
         
-        print("function \(__FUNCTION__)")
+        print("function \(#function)")
         
         for i in 0..<numberOfBubbles{
             let value = 1 / CGFloat(numberOfBubbles)
@@ -104,7 +104,7 @@ class SCSkypeActivityIndicatorView: UIView {
                 }, completion: { (complete) -> Void in
                     view.layer.removeAllAnimations()
                     view.removeFromSuperview()
-                    count--
+                    count -= 1
                     if count == 0
                     {
                         completion?(true)
@@ -115,7 +115,33 @@ class SCSkypeActivityIndicatorView: UIView {
         isAnimating = false
     }
     
+    func animationScaleBubbleView(bubbleView:SCSkypeActivityIndicatorBubbleView,initialScale:CGFloat,finalScale:CGFloat,isInit:Bool)
+    {
+        let minTransform = CATransform3DMakeScale(initialScale,initialScale , 1)
+        let maxTransform = CATransform3DMakeScale(finalScale,finalScale , 1)
+        
+        let transformInit = isInit ? minTransform : maxTransform
+        let transformFinal = isInit ? maxTransform : minTransform
+        print("isInit : \(isInit ? "true" : "false")")
+        
+        bubbleView.layer.transform = transformInit
+        
+        let option:UIViewAnimationOptions = isInit ? .CurveEaseIn : .CurveEaseOut
+        UIView.animateWithDuration(
+            self.animationDuration,
+            delay: 0,
+            options: option,
+            animations:
+        {
+             bubbleView.layer.transform = transformFinal
+            }) { [weak self](isComplete) in
+                self?.animationScaleBubbleView(bubbleView, initialScale: initialScale, finalScale: finalScale,isInit: !isInit)
+        }
+    }
+    
     func bubbleWithTimingFunction(timingFunction:CAMediaTimingFunction,initialScale:CGFloat,finalScale:CGFloat) ->SCSkypeActivityIndicatorBubbleView{
+        print("\(#function) , initialScale : \(initialScale) , finalScale : \(finalScale)")
+        
         let bubbleView = SCSkypeActivityIndicatorBubbleView(frame: CGRect(origin: CGPointZero, size: bubbleSize))
         bubbleView.color = bubbleColor
         let pi = CGFloat(M_PI)
@@ -131,21 +157,22 @@ class SCSkypeActivityIndicatorView: UIView {
         
         bubbleView.layer.addAnimation(pathAnimation, forKey: kSkypeCurveAnimationKey)
         
-        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
-        scaleAnimation.duration = self.animationDuration
-        pathAnimation.repeatCount =  Float(CGFloat.max)
-        scaleAnimation.fromValue = initialScale
-        scaleAnimation.toValue = finalScale
-        
-        if initialScale > finalScale
-        {
-            scaleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        }else
-        {
-            scaleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        }
-        
-         bubbleView.layer.addAnimation(scaleAnimation, forKey: kSkypeScaleAnimationKey)
+//        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+//        scaleAnimation.duration = self.animationDuration
+//        pathAnimation.repeatCount =  Float(CGFloat.max)
+//        scaleAnimation.fromValue = initialScale
+//        scaleAnimation.toValue = finalScale
+//        
+//        if initialScale > finalScale
+//        {
+//            scaleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+//        }else
+//        {
+//            scaleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+//        }
+//        
+//         bubbleView.layer.addAnimation(scaleAnimation, forKey: kSkypeScaleAnimationKey)
+        self.animationScaleBubbleView(bubbleView, initialScale: initialScale, finalScale: finalScale,isInit:true)
         
         
         return bubbleView

@@ -39,7 +39,7 @@ class WebViewViewController:UIViewController
     
     
     deinit{
-        print("func \(__FUNCTION__) class:\(self.dynamicType)")
+        print("func \(#function) class:\(self.dynamicType)")
         self.webView.removeObserver(self, forKeyPath: "estimatedProgress")
         self.webView.removeObserver(self, forKeyPath: "loading")
     }
@@ -188,41 +188,41 @@ extension WebViewViewController:WKScriptMessageHandler{
 
 extension WebViewViewController:WKNavigationDelegate{
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        print("\(__FUNCTION__)")
+        print("\(#function)")
         self.textField.text = webView.URL?.absoluteString
         saveToUserDefaults(self.textField.text, key: kUrlLastVisit)
         decisionHandler(.Allow)
     }
     
     func webViewWebContentProcessDidTerminate(webView: WKWebView) {
-        print("\(__FUNCTION__)")
+        print("\(#function)")
     }
     
     func webView(webView: WKWebView, decidePolicyForNavigationResponse navigationResponse: WKNavigationResponse, decisionHandler: (WKNavigationResponsePolicy) -> Void) {
-        print("\(__FUNCTION__)")
+        print("\(#function)")
 //        self.textField.text = webView.URL?.absoluteString
 //        saveToUserDefaults(self.textField.text, key: kUrlLastVisit)
         decisionHandler(.Allow)
     }
 
     func webView(webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        print("\(__FUNCTION__)")
+        print("\(#function)")
     }
     
     
     func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        print("\(__FUNCTION__)")
+        print("\(#function)")
         self.progressView.hidden = false
     }
     
     func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
-        print("\(__FUNCTION__)")
+        print("\(#function)")
         self.progressView.hidden = true
     }
     
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        print("\(__FUNCTION__)")
+        print("\(#function)")
         self.progressView.hidden = true
     }
     
